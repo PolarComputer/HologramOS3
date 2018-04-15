@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebScockets 101</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+        <link href="/styles.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    </head>
+    <body onload="startTime()">
+      <main>
+
+        <div id="clock"></div>
+
+        <active-dot></active-dot>
+
+        <i id=setting-icon onclick="showSetting()" class="fas fa-cog"></i>
+        <i id=setting-close onclick="hideSetting()" class="fas fa-times" style="display:none;"></i>
+
+        <div id=setting-background></div>
+        <div id="title">Settings</div>
+        <div id="titleSettings" hidden>Settings</div>
+
+        <div class="scrollBox" hidden>
+          <div class="settingPannel" id=main style="display: none;">
+            <hr>
+
+            <div id=network class=setting-widget>
+              <h2>Network & Internet
+                <i id=icon class="fas fa-wifi"></i>
+              </h2>
+
+            </div>
+
+            <hr>
+
+            <div id=devices class=setting-widget>
+              <h2>Connected Devices
+                <i id=icon class="fab fa-bluetooth-b" style="padding-right: 38px;"></i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div id=security class=setting-widget>
+              <h2>Security
+                <i id=icon class="fas fa-shield-alt"></i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div id=payment class=setting-widget>
+              <h2>Payment
+                <i id=icon class="fas fa-credit-card"></i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div id=display class=setting-widget>
+              <h2>Holographic Display
+                <i id=icon class="fas fa-tv"></i>
+                <!--FIXME  add hologram icon -->
+              </h2>
+            </div>
+
+            <hr>
+
+            <div id=about class=setting-widget>
+              <h2>About this Device
+                <i id=icon class="fas fa-info-circle"></i>
+                <!--FIXME  add hologram icon -->
+              </h2>
+            </div>
+
+            <hr>
+
+          </div>
+          <br>
+
+          <div class="settingPannel" id=about-box hidden>
+            <hr>
+            <div class="setting-widget back">
+              <h2>
+                <center>
+                  <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </center>
+              </h2>
+            </div>
+            <hr>
+            <div class=setting-widget>
+              <h2>Device Name
+                <i>Polar Mercury Mini</i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>Version
+                <i>1.0.0 Beta</i>
+              </h2>
+            </div>
+
+            <hr>
+          </div>
+
+
+          <div class="settingPannel" id=payment-box hidden>
+            <hr>
+            <div class="setting-widget back">
+              <h2>
+                <center>
+                  <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </center>
+              </h2>
+            </div>
+            <hr>
+
+            <div class=setting-widget>
+              <h2>
+                 Sorry, this feature hasn't been added yet.
+              </h2>
+            </div>
+
+            <hr>
+          </div>
+
+          <div class="settingPannel" id=network-box hidden>
+            <hr>
+            <div class="setting-widget back">
+              <h2>
+                <center>
+                  <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </center>
+              </h2>
+            </div>
+            <hr>
+            <div class=setting-widget>
+              <h2><center>Connected to <b>Snickers</b>
+              </center></h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>Security Type
+                <i>WPA WPA2</i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>ssid
+                <i>ew46598v5n6948n5u9:689un3v</i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>IPv4 Address
+                <i>93.184.216.34</i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>IPv6 Address
+                <i style="font-size: 20px; padding-top: 8px;">2606:2800:220:1:248:1893:25c8:1946</i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>Forget Network
+                <i id=icon class="fas fa-trash"></i>
+              </h2>
+            </div>
+
+            <hr>
+
+            <div class=setting-widget>
+              <h2>Add new Network
+                <i id=icon class="fas fa-plus"></i>
+              </h2>
+            </div>
+
+            <hr>
+          </div>
+
+        </div>
+
+
+        <div id="carousel">
+
+          <app class="selected" order=first name="Settings">
+            <img src="/img/applications-system.png">
+          </app>
+
+          <app class="next" name="Share Screen">
+            <img src="/img/accessories-screenshot.png">
+          </app>
+
+          <app class="nextRightSecond" name="App Store">
+            <img src="/img/software-store.png">
+          </app>
+
+          <app class="hideRight" name="3D Music Examples">
+            <img src="/img/gnome-music.png">
+          </app>
+
+          <app class="hideRight" name="3D Display Examples">
+            <img src="/img/multimedia-video-player.png">
+          </app>
+
+          <app class="hideLeft" name="3D Builder">
+            <img src="/img/builder.png">
+          </app>
+
+          <app class="hideLeft" name="Blender6">
+            <img src="https://picsum.photos/400/400/?random7">
+          </app>
+
+          <app class="hideLeft" name="Blender7">
+            <img src="https://picsum.photos/400/400/?random8">
+          </app>
+
+          <app class="hideLeft" name="Blender8">
+            <img src="https://picsum.photos/400/400/?random6">
+          </app>
+
+          <app class="hideLeft" name="Blender9">
+            <img src="https://picsum.photos/400/400/?random7">
+          </app>
+
+          <app class="hideLeft" order=last name="Blender10">
+            <img src="https://picsum.photos/400/400/?random8">
+          </app>
+
+        </div>
+      </main>
+    </body>
+
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src="/chat.js"></script>
+    <script src="/index.js"></script>
+
+</html>
