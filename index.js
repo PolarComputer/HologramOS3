@@ -1,12 +1,19 @@
 var express = require('express');
 var socket = require('socket.io');
 var si = require('systeminformation');
+var port = 8080;
 
-
-// App setup
 var app = express();
-var server = app.listen(4000, function(){
-    console.log('listening for requests on port 4000,');
+
+// print process.argv
+process.argv.forEach(function (val, index, array) {
+  if(index == 2) {
+    var port = 4000
+  }
+});
+
+var server = app.listen(8080, function(){
+    console.log('listening for requests on port ' + port);
 });
 
 
