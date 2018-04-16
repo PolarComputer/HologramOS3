@@ -1,4 +1,5 @@
 function moveToSelected( element ) {
+
   if ( element == "next" ) {
     var selected = $( ".selected" ).next();
   } else if (element == "prev") {
@@ -6,6 +7,8 @@ function moveToSelected( element ) {
   } else {
     var selected = element;
   }
+
+
 
   var next = $( selected ).next();
   var prev = $( selected ).prev();
@@ -15,6 +18,9 @@ function moveToSelected( element ) {
   $( selected )
     .removeClass()
     .addClass( "selected" );
+
+
+
 
   //Change Title
   if ( $( selected ).attr( "name" ) != null ) {
@@ -55,6 +61,8 @@ function moveToSelected( element ) {
     .addClass( "hideLeft" );
 }
 
+
+
 // Eventos teclado
 $( document ).keydown( function(e) {
   switch ( e.which ) {
@@ -66,23 +74,40 @@ $( document ).keydown( function(e) {
       moveToSelected( "next" );
       break;
 
+    case 13: // enter
+      openApp( $( ".selected" ) );
+      break;
+
     default:
       return;
   }
   e.preventDefault();
 });
 
-$( "#carousel app" ).click( function() {
-  moveToSelected( $( this ) );
+$( "app" ).click( function() {
+  if ( $( this ).attr("class") == "selected" ) {
+    openApp( $( this ) );
+  } else {
+    moveToSelected( $( this ) );
+  }
 });
 
-$( "#prev" ).click( function() {
-  moveToSelected( "prev" );
-});
+function openApp(element) {
+  if ( element.attr("name") == "Settings" ) {
+    showSetting();
+  }
+  if ( element.attr("name") == "Settings" ) {
+    showSetting();
+  }
+}
 
-$( "#next" ).click( function() {
-  moveToSelected( "next" );
-});
+// $( "#prev" ).click( function() {
+//   moveToSelected( "prev" );
+// });
+//
+// $( "#next" ).click( function() {
+//   moveToSelected( "next" );
+// });
 
 // Clock Time
 function startTime() {
